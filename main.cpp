@@ -2,83 +2,81 @@
 #include <map>
 #include "utils.hpp"
 
+using namespace std;
+
 int main() {
-    std::map<std::string, std::string> users;
+    map<string, string> users;
     bool loggedIn = false;
-    std::string currentUser = "";
 
     int choice;
 
     while (true) {
-        std::cout << "\nMenu:\n";
+        cout << endl << "Menu:" << endl;
 
         if (!loggedIn) {
-            std::cout << "1. Sign Up\n";
-            std::cout << "2. Login\n";
+            cout << "1. Sign Up" << endl;
+            cout << "2. Login" << endl;
         } else {
-            std::cout << "3. Logout\n";
+            cout << "3. Logout" << endl;
         }
 
-        std::cout << "0. Exit\n";
-        std::cout << "Enter choice: ";
-        std::cin >> choice;
+        cout << "0. Exit" << endl;
+        cout << "Choice: ";
+        cin >> choice;
 
         // SIGN UP
         if (choice == 1 && !loggedIn) {
-            std::string email, password;
+            string email, password;
 
-            std::cout << "Enter email: ";
-            std::cin >> email;
+            cout << "Enter email: ";
+            cin >> email;
 
             try {
                 check_email(email);
-            } catch (...) {
-                std::cout << "Invalid email format\n";
+            } catch (invalid_argument& e) {
+                cout << "Invalid email" << endl;
                 continue;
             }
 
-            std::cout << "Enter password: ";
-            std::cin >> password;
+            cout << "Enter password: ";
+            cin >> password;
 
             users[email] = password;
 
-            std::cout << "Sign up successful!\n";
+            cout << "Account created" << endl;
         }
 
         // LOGIN
         else if (choice == 2 && !loggedIn) {
-            std::string email, password;
+            string email, password;
 
-            std::cout << "Enter email: ";
-            std::cin >> email;
+            cout << "Enter email: ";
+            cin >> email;
 
-            std::cout << "Enter password: ";
-            std::cin >> password;
+            cout << "Enter password: ";
+            cin >> password;
 
             if (users.find(email) != users.end() && users[email] == password) {
                 loggedIn = true;
-                currentUser = email;
-                std::cout << "Login successful!\n";
+                cout << "Logged in" << endl;
             } else {
-                std::cout << "Invalid credentials\n";
+                cout << "Wrong email or password" << endl;
             }
         }
 
         // LOGOUT
         else if (choice == 3 && loggedIn) {
             loggedIn = false;
-            currentUser = "";
-            std::cout << "Logged out successfully\n";
+            cout << "Logged out" << endl;
         }
 
         // EXIT
         else if (choice == 0) {
-            std::cout << "Exiting program...\n";
             break;
         }
 
         else {
-            std::cout << "Invalid option\n";
+            cout << "Invalid choice" << endl;
         }
     }
 

@@ -2,10 +2,12 @@
 #include <regex>
 #include <stdexcept>
 
-void check_email(const std::string& email) {
-    std::regex pattern("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+using namespace std;
 
-    if (!std::regex_match(email, pattern)) {
-        throw std::invalid_argument("Invalid email format");
+void check_email(const string& email) {
+    regex pattern(".+@.+\\..+");
+
+    if (!regex_match(email, pattern)) {
+        throw invalid_argument("Invalid email");
     }
 }
